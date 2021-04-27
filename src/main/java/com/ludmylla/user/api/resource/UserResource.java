@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ludmylla.user.api.exceptions.AccessDeniedException;
 import com.ludmylla.user.api.mapper.UserMapper;
 import com.ludmylla.user.api.model.JWTAuthenticationResponse;
 import com.ludmylla.user.api.model.User;
@@ -50,13 +51,13 @@ public class UserResource {
 	
 	@GetMapping
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public ResponseEntity<List<User>> getAllUsers(){
+	public ResponseEntity<List<User>> getAllUsers() throws AccessDeniedException{
 		try {
 			List<User> user = userService.getAllUsers();
 			return ResponseEntity.ok(user);
 		} catch (Exception e) {
 			return new ResponseEntity<List<User>>(HttpStatus.BAD_REQUEST);
-		} 
+		}
 	}
 
 }

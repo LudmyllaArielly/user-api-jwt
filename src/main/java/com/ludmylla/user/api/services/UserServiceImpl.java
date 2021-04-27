@@ -24,13 +24,13 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
-	
+
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private JWTTokenProvider jwtTokenProvider;
 
@@ -41,12 +41,12 @@ public class UserServiceImpl implements UserService {
 		User userSave = userRepository.save(user);
 		return userSave.getId();
 	}
-	
+
 	private void getRoleOfUser(User user) {
 		List<Role> role = roleRepository.findByName(user.getRoles().get(0).getName());
 		user.setRoles(role);
 	}
-	
+
 	private void getPasswordToEncrypt(User user) {
 		String password = passwordEncoder.encode(user.getPassword());
 		user.setPassword(password);
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		return generateToken(authentication);
 	}
-	
+
 	private String generateToken(Authentication authentication) {
 		String token = jwtTokenProvider.generateToken(authentication);
 		return token;
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> getAllUsers() {
-		List<User> list = userRepository.findAll();		
+		List<User> list = userRepository.findAll();
 		return list;
 	}
 

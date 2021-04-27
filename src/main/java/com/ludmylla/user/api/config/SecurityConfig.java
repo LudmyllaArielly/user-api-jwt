@@ -9,6 +9,7 @@ import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -30,19 +31,9 @@ import com.ludmylla.user.api.services.CustomUserDetailsServiceImpl;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private  CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
+	
 	@Autowired
 	private  JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-	//@Autowired(required = true)
-	//private final JWTAuthenticationFilter jwtAuthenticationFilter;
-	/*
-	@Autowired(required=true)
-	public SecurityConfig(UserRepository userRepository, CustomUserDetailsServiceImpl customUserDetailsServiceImpl,
-			JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint, JWTAuthenticationFilter jwtAuthenticationFilter) {
-
-		this.customUserDetailsServiceImpl = customUserDetailsServiceImpl;
-		this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
-		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-	}*/
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -54,15 +45,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
 		.authorizeRequests()
-		.antMatchers("/v2/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
+		.antMatchers( 
+				"/swagger-resources/**",
+	            "/swagger-ui.html",
+	            "/v2/api-docs",
+	            "/webjars/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/**").permitAll()
-		.antMatchers(HttpMethod.POST, "/**").permitAll()
 		.antMatchers(HttpMethod.POST, "/users/signin/**").permitAll()
 		.antMatchers(HttpMethod.POST, "/users/signup/**").permitAll()
+		.antMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
 		.anyRequest().authenticated();
 
 		http.addFilterBefore(JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
+	
+	@Override
+	  public void configure(WebSecurity web) throws Exception {
+	    web.ignoring().antMatchers("/v2/api-docs/**", "/v2/api-docs/swagger-config", "/swagger-ui/**", "/v2/api-docs.yml",
+	        "/configuration/ui", "/swagger-resources/**", "/configuration/security", "/swagger-ui.html", "/webjars/**");
+
+	  }
 	
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(customUserDetailsServiceImpl)
