@@ -1,4 +1,4 @@
-package com.ludmylla.user.api.model;
+package com.ludmylla.user.api.config;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ludmylla.user.api.model.User;
 
 public class UserPrinicipal implements UserDetails {
 	private static final long serialVersionUID = 1L;
