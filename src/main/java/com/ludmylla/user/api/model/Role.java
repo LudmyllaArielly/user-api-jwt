@@ -2,16 +2,11 @@ package com.ludmylla.user.api.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
-import org.hibernate.annotations.NaturalId;
-
-import com.ludmylla.user.api.model.enums.RoleName;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,11 +21,10 @@ public class Role implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NaturalId
-	@Enumerated(EnumType.STRING)
-	private RoleName name;
+	@Column(unique = true)
+	private String name;
 	
-	public Role(RoleName name) {
+	public Role(String name) {
 		this.name = name;
 	}
 
