@@ -3,6 +3,7 @@ package com.ludmylla.user.api.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.ludmylla.user.api.model.Role;
@@ -18,11 +19,16 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public Long createUser(User user) {
 		List<Role> roles = roleRepository.findByName(user.getRoles().get(0).getName());
+		String password = passwordEncoder.encode(user.getPassword());
 		user.setRoles(roles);
+		user.setPassword(password);
 		User userSave = userRepository.save(user);
 		return userSave.getId();
 	}
