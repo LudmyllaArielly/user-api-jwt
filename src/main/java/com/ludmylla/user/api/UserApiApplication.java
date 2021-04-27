@@ -14,6 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EntityScan("com.ludmylla.user.api.*")
 @EnableAutoConfiguration
 @EnableJpaRepositories(basePackages = {"com.ludmylla.user.api.repository"})
+
 public class UserApiApplication {
 
 	public static void main(String[] args) {

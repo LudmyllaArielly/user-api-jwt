@@ -16,24 +16,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.ludmylla.user.api.repository.UserRepository;
 import com.ludmylla.user.api.security.JWTAuthenticationEntryPoint;
 import com.ludmylla.user.api.security.JWTAuthenticationFilter;
+import com.ludmylla.user.api.security.JWTTokenProvider;
 import com.ludmylla.user.api.services.CustomUserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-		securedEnabled = true,
-		jsr250Enabled = true,
+		//securedEnabled = true,
+		//jsr250Enabled = true,
 		prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	private final CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
-	private final JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-	private final JWTAuthenticationFilter jwtAuthenticationFilter;
-	
-	
+	@Autowired
+	private  CustomUserDetailsServiceImpl customUserDetailsServiceImpl;
+	@Autowired
+	private  JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+	//@Autowired(required = true)
+	//private final JWTAuthenticationFilter jwtAuthenticationFilter;
+	/*
 	@Autowired(required=true)
 	public SecurityConfig(UserRepository userRepository, CustomUserDetailsServiceImpl customUserDetailsServiceImpl,
 			JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint, JWTAuthenticationFilter jwtAuthenticationFilter) {
@@ -41,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		this.customUserDetailsServiceImpl = customUserDetailsServiceImpl;
 		this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
 		this.jwtAuthenticationFilter = jwtAuthenticationFilter;
-	}
+	}*/
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -56,12 +57,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/**").permitAll()
 		.anyRequest().authenticated();
 		
-		http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder.userDetailsService(customUserDetailsServiceImpl)
 		.passwordEncoder(passwordEncoder());
+	}
+	
+	@Bean
+	public JWTAuthenticationFilter JWTAuthenticationFilter() {
+	        return new JWTAuthenticationFilter();
+	}
+	
+	@Bean
+	public JWTTokenProvider JWTTokenProvider() {
+	        return new JWTTokenProvider();
 	}
 
 	@Bean
