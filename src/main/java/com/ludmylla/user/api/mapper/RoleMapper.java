@@ -11,10 +11,11 @@ import com.ludmylla.user.api.model.dto.RoleCreateDTO;
 
 @Mapper(componentModel = "spring")
 public interface RoleMapper {
-	
+
 	RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
-	
-	
-	@Mapping(target = "id", ignore =true)
-	List<RoleCreateDTO> dtoRole (List<Role> role);
+
+	@Mapping(target = "id", ignore = true)
+	Role toRole(RoleCreateDTO source);
+
+	List<RoleCreateDTO> dtoRole(List<Role> role);
 }
