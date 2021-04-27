@@ -36,6 +36,7 @@ public class User {
 	private String cpf;
 	private LocalDate dateOfBirth;
 	private String email;
+	private String password;
 	
 	@ManyToMany
 	@JoinTable(name = "user_role", joinColumns = 
@@ -54,7 +55,5 @@ public class User {
 			this.roles = Collections.unmodifiableList(roles);
 		}
 	}
-
-	
 
 }
