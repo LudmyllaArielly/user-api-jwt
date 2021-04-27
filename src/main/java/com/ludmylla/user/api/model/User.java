@@ -39,12 +39,12 @@ public class User {
 	private String password;
 	
 	@ManyToMany
-	@JoinTable(name = "user_role", joinColumns = 
+	/*@JoinTable(name = "user_role", joinColumns = 
 	@JoinColumn(name="user_id", referencedColumnName = "id"),inverseJoinColumns = 
-	@JoinColumn(name ="role_id", referencedColumnName = "id"))
-	private List<Role> roles;
+	@JoinColumn(name ="role_id", referencedColumnName = "id"))*/
+	private List<Role> roles = new ArrayList<Role>();
 	
-	public List<Role> getRoles() {
+	/*public List<Role> getRoles() {
 		return roles == null ? null : new ArrayList<>(roles);
 	}
 
@@ -54,6 +54,6 @@ public class User {
 		} else {
 			this.roles = Collections.unmodifiableList(roles);
 		}
-	}
+	}*/
 
 }
