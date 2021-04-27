@@ -16,8 +16,8 @@ public interface UserMapper {
 
 	@Mapping(target = "id", ignore = true)
 	@Mapping(target = "roles", source = "roleCreateDTOs")
-	User toUser(UserCreateDTO source);
-	
+	User toUser(UserCreateDTO source);	
+
 	@Mappings({
 			@Mapping(target = "id", ignore=true),
 			@Mapping(target = "firstName", ignore=true),
@@ -28,5 +28,4 @@ public interface UserMapper {
 	})
 	User toUser (UserLoginDTO source);
 	
-
 }

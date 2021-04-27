@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -39,12 +37,9 @@ public class User {
 	private String password;
 	
 	@ManyToMany
-	/*@JoinTable(name = "user_role", joinColumns = 
-	@JoinColumn(name="user_id", referencedColumnName = "id"),inverseJoinColumns = 
-	@JoinColumn(name ="role_id", referencedColumnName = "id"))*/
 	private List<Role> roles = new ArrayList<Role>();
 	
-	/*public List<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles == null ? null : new ArrayList<>(roles);
 	}
 
@@ -54,6 +49,6 @@ public class User {
 		} else {
 			this.roles = Collections.unmodifiableList(roles);
 		}
-	}*/
+	}
 
 }

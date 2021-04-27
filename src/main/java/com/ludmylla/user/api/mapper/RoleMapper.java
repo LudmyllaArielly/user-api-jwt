@@ -14,8 +14,9 @@ public interface RoleMapper {
 
 	RoleMapper INSTANCE = Mappers.getMapper(RoleMapper.class);
 
+	RoleCreateDTO dtoRoleCreateDto(Role source);
+	
 	@Mapping(target = "id", ignore = true)
-	Role toRole(RoleCreateDTO source);
+	List<RoleCreateDTO> dtoRole(List<Role> source);
 
-	List<RoleCreateDTO> dtoRole(List<Role> role);
 }
