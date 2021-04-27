@@ -36,12 +36,8 @@ public class UserResource {
 	@PostMapping("/signin")
 	public ResponseEntity<JWTAuthenticationResponse> userAuthentication(@RequestBody UserLoginDTO userLoginDTO) {
 		User user = UserMapper.INSTANCE.toUser(userLoginDTO);
-
-		Authentication authentication = authenticationManager
-				.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		String token = jwtTokenProvider.generateToken(authentication);
+		String token = userService.userAuthentication(user);
+		
 		return ResponseEntity.ok(new JWTAuthenticationResponse(token));
 	}
 

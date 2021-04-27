@@ -5,5 +5,7 @@ import com.ludmylla.user.api.model.User;
 public interface UserService {
 	
 	Long createUser(User user);
+	
+	String userAuthentication(User user); 
 
 }
