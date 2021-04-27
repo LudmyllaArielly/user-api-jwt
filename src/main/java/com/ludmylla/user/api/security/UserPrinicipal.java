@@ -1,4 +1,4 @@
-package com.ludmylla.user.api.config;
+package com.ludmylla.user.api.security;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

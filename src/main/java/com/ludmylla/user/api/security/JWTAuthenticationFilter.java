@@ -1,4 +1,4 @@
-package com.ludmylla.user.api.config;
+package com.ludmylla.user.api.security;
 
 import java.io.IOException;
 
@@ -18,6 +18,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.ludmylla.user.api.services.CustomUserDetailsService;
+
 
 public class JWTAuthenticationFilter extends OncePerRequestFilter{
 	

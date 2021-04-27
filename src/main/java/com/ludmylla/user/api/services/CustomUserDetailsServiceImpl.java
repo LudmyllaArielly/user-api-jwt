@@ -6,9 +6,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ludmylla.user.api.config.UserPrinicipal;
 import com.ludmylla.user.api.model.User;
 import com.ludmylla.user.api.repository.UserRepository;
+import com.ludmylla.user.api.security.UserPrinicipal;
 
 @Service
 public class CustomUserDetailsServiceImpl implements UserDetailsService, CustomUserDetailsService {
@@ -19,7 +19,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService, CustomU
 	@Transactional
 	@Override
 	public UserDetails loadUserByUsername(String email) {
-		User user = userRepository.findByFistNameOrEmail(email, email).orElse(null);
+		User user = userRepository.findByEmail(email).orElse(null);
 
 		return UserPrinicipal.create(user);
 	}
