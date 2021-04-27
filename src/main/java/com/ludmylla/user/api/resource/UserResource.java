@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ludmylla.user.api.Mapper.UserMapper;
+import com.ludmylla.user.api.mapper.UserMapper;
 import com.ludmylla.user.api.model.JWTAuthenticationResponse;
 import com.ludmylla.user.api.model.User;
 import com.ludmylla.user.api.model.dto.UserCreateDTO;
