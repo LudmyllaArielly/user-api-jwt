@@ -16,6 +16,7 @@ import com.ludmylla.user.api.mapper.UserMapper;
 import com.ludmylla.user.api.model.JWTAuthenticationResponse;
 import com.ludmylla.user.api.model.User;
 import com.ludmylla.user.api.model.dto.UserCreateDTO;
+import com.ludmylla.user.api.model.dto.UserLoginDTO;
 import com.ludmylla.user.api.security.JWTTokenProvider;
 import com.ludmylla.user.api.services.UserService;
 
@@ -33,8 +34,8 @@ public class UserResource {
 	private JWTTokenProvider jwtTokenProvider;
 
 	@PostMapping("/signin")
-	public ResponseEntity<JWTAuthenticationResponse> userAuthentication(@RequestBody User user) {
-		// User user = UserMapper.INSTANCE.toUser(userLoginDTO);
+	public ResponseEntity<JWTAuthenticationResponse> userAuthentication(@RequestBody UserLoginDTO userLoginDTO) {
+		User user = UserMapper.INSTANCE.toUser(userLoginDTO);
 
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
