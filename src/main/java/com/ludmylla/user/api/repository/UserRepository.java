@@ -9,5 +9,5 @@ import com.ludmylla.user.api.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>{
 	
-	Optional<User> findByEmail(String email);
+	Optional<User> findByFistNameOrEmail(String firstName,String email);
 }
