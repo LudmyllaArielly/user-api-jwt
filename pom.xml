@@ -18,6 +18,7 @@
 		 
          <version.mapstruct>1.4.2.Final</version.mapstruct>
          <version.mapstruct-lombok>0.2.0</version.mapstruct-lombok>
+         <version.lombok>1.18.16</version.lombok>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -52,6 +53,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
+			<version>${version.lombok}</version>
 			<optional>true</optional>
 		</dependency>
 		  <dependency>
@@ -78,7 +80,17 @@
 			<artifactId>jjwt</artifactId>
 			<version>0.7.0</version>
 		</dependency>
-		
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

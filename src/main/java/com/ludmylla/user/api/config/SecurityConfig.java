@@ -54,9 +54,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 		.and()
 		.authorizeRequests()
+		.antMatchers("/v2/api-docs", "/swagger-resources/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security", "/swagger-ui.html", "/webjars/**").permitAll()
 		.antMatchers(HttpMethod.GET, "/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/users/signin/**").permitAll()
+		.antMatchers(HttpMethod.POST, "/users/signup/**").permitAll()
 		.anyRequest().authenticated();
-		
+
 		http.addFilterBefore(JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 	
@@ -85,4 +89,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
+
 }
