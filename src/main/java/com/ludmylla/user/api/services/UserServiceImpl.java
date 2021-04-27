@@ -65,4 +65,10 @@ public class UserServiceImpl implements UserService {
 		return token;
 	}
 
+	@Override
+	public List<User> getAllUsers() {
+		List<User> list = userRepository.findAll();		
+		return list;
+	}
+
 }
